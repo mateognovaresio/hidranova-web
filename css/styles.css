@@ -152,9 +152,31 @@ header {
   align-items: center;
   gap: 12px;
 }
-.brand img {
-  height: 56px;
+.brand-mark {
+  height: 42px;
   width: auto;
+  flex: none;
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: .5px;
+  color: var(--color-red);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.brand-sub {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-light);
+  margin-top: 2px;
 }
 
 .navlinks {
@@ -526,9 +548,29 @@ footer {
   border-bottom: 1px solid rgba(255, 255, 255, .12);
 }
 
-.footer-brand img {
-  height: 40px;
-  filter: brightness(0) invert(1);
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-brand .icon-badge {
+  background: rgba(255, 255, 255, .08);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.footer-brand .icon-badge img {
+  height: 26px;
+  width: auto;
+}
+.footer-brand .brand-name {
+  color: var(--color-white);
+}
+.footer-brand .brand-sub {
+  color: #A9A9A9;
 }
 
 .footer-links {
@@ -630,6 +672,11 @@ footer {
   }
   .mobile-bar {
     display: block;
+  }
+  /* La barra fija de abajo ya tiene su propio botón de WhatsApp:
+     el globo flotante se oculta para que no se superpongan */
+  .float-whatsapp {
+    display: none;
   }
   body {
     padding-bottom: 64px;
