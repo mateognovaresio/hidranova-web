@@ -1,0 +1,37 @@
+/* ==========================================================================
+   VARIABLES.CSS
+   Acá vive TODA la identidad visual de la marca: colores, tipografías,
+   espaciados. Si mañana hay que cambiar un color, se cambia UNA vez acá
+   y se actualiza en todo el sitio automáticamente.
+   ========================================================================== */
+
+:root {
+  /* Colores de marca (extraídos del logo HIDRA-NOVA) */
+  --color-yellow: #FFD138;
+  --color-yellow-dark: #F5C216;
+  --color-charcoal: #2B2C2F;   /* negro/gris del logo, usado en textos y fondos oscuros */
+  --color-charcoal-2: #414245; /* variante más clara del gris del logo */
+  --color-red: #C62026;        /* rojo del texto "HIDRA-NOVA" */
+  --color-whatsapp: #25D366;
+  --color-whatsapp-dark: #1EBE5A;
+
+  /* Neutros */
+  --color-white: #FFFFFF;
+  --color-offwhite: #F7F6F3;
+  --color-border: #E3E1DC;
+  --color-text: #2B2C2F;
+  --color-text-light: #6B6B6B;
+
+  /* Tipografía */
+  --font-heading: 'Barlow Condensed', Arial, sans-serif;
+  --font-body: 'Inter', Arial, sans-serif;
+
+  /* Layout */
+  --max-width: 1180px;
+  --radius: 10px;
+  --radius-lg: 12px;
+
+  /* Espaciados */
+  --space-section: 80px;
+  --space-section-mobile: 56px;
+}
