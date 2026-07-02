@@ -56,6 +56,39 @@ h1, h2, h3, h4 {
 }
 
 /* --------------------------------------------------------------------------
+   ÍCONOS (SVG en línea, estilo outline — reemplazan a los emojis)
+   Uso: <svg class="icon-svg" viewBox="0 0 24 24">...</svg>
+   Toman el color del texto que los rodea (currentColor), así que no hace
+   falta definir color en cada uno: cambian solos si cambia el color del padre.
+   -------------------------------------------------------------------------- */
+
+.icon-svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+  display: inline-block;
+  vertical-align: middle;
+}
+.icon-svg-md {
+  width: 20px;
+  height: 20px;
+}
+.icon-svg-lg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.7;
+}
+.icon-svg-xl {
+  width: 30px;
+  height: 30px;
+}
+
+/* --------------------------------------------------------------------------
    BOTONES
    -------------------------------------------------------------------------- */
 
@@ -357,10 +390,10 @@ header {
   height: 52px;
   border-radius: 8px;
   background: var(--color-yellow);
+  color: var(--color-charcoal);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
   margin-bottom: 18px;
 }
 .card h3 {
@@ -489,7 +522,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
 }
 .contact-row a,
 .contact-row div {
@@ -515,17 +547,51 @@ header {
   flex-wrap: wrap;
 }
 
+.btn-directions {
+  background: rgba(255, 255, 255, .1);
+  color: var(--color-white);
+  border-color: rgba(255, 255, 255, .4);
+}
+.btn-directions:hover {
+  background: var(--color-white);
+  color: var(--color-charcoal);
+  border-color: var(--color-white);
+}
+
+.map-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .map-wrap {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--color-border);
   min-height: 340px;
+  flex: 1;
 }
 .map-wrap iframe {
   width: 100%;
   height: 100%;
   min-height: 340px;
   border: 0;
+}
+
+.map-directions-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 15px;
+}
+.map-directions-link:hover {
+  background: var(--color-charcoal-2);
 }
 
 /* --------------------------------------------------------------------------
