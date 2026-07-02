@@ -2,13 +2,29 @@
    STYLES.CSS
    Estilos generales del sitio HIDRA-NOVA Oleohidráulica.
    Usa las variables definidas en variables.css (colores, fuentes, espaciados).
-   Organizado por bloques: general -> header -> secciones -> footer -> extras.
+
+   METODOLOGÍA: MOBILE-FIRST.
+   Todo lo que está SIN media query es el estilo para celular (la mayoría
+   de las visitas). Las @media (min-width: ...) van agregando estilos para
+   pantallas más grandes — nunca al revés. Si vas a agregar algo nuevo,
+   escribilo primero pensando en un celular chico y después ajustalo para
+   pantallas grandes con min-width.
+
+   Breakpoints usados en todo el archivo:
+     600px  -> empieza a haber lugar para poner cosas en fila (botones, 2 columnas)
+     860px  -> aparece la navegación de escritorio, layouts de 2 columnas
+     1080px -> grillas de 3-4 columnas, ancho completo de escritorio
    ========================================================================== */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 
 body {
   font-family: var(--font-body);
   color: var(--color-text);
   background: var(--color-white);
+  font-size: 16px;
 }
 
 h1, h2, h3, h4 {
@@ -22,11 +38,21 @@ h1, h2, h3, h4 {
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
+}
+@media (min-width: 860px) {
+  .container {
+    padding: 0 24px;
+  }
 }
 
 .section {
-  padding: var(--space-section) 0;
+  padding: var(--space-section-mobile) 0;
+}
+@media (min-width: 860px) {
+  .section {
+    padding: var(--space-section) 0;
+  }
 }
 
 .section-alt {
@@ -38,21 +64,27 @@ h1, h2, h3, h4 {
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 8px;
   display: block;
 }
 
 .section-title {
-  font-size: 38px;
-  margin-bottom: 16px;
+  font-size: clamp(28px, 7vw, 38px);
+  margin-bottom: 14px;
 }
 
 .section-lead {
   max-width: 640px;
   color: var(--color-text-light);
-  font-size: 17px;
-  margin-bottom: 40px;
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+@media (min-width: 860px) {
+  .section-lead {
+    font-size: 17px;
+    margin-bottom: 40px;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -90,19 +122,23 @@ h1, h2, h3, h4 {
 
 /* --------------------------------------------------------------------------
    BOTONES
+   Base mobile: se pueden estirar a ancho completo con .btn-block (lo usamos
+   en las filas de CTAs para que el dedo tenga un blanco grande para tocar).
    -------------------------------------------------------------------------- */
 
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 12px 22px;
-  border-radius: 6px;
+  padding: 14px 22px;
+  border-radius: 8px;
   font-weight: 700;
   font-size: 15px;
   border: 2px solid transparent;
   cursor: pointer;
   white-space: nowrap;
+  min-height: 48px; /* tamaño mínimo recomendado para tocar con el dedo */
 }
 
 .btn-primary {
@@ -133,31 +169,48 @@ h1, h2, h3, h4 {
 
 /* --------------------------------------------------------------------------
    TOPBAR (franja superior con dirección/horario/contacto rápido)
+   En celular se acomoda en dos líneas apiladas para no verse apretada.
    -------------------------------------------------------------------------- */
 
 .topbar {
   background: var(--color-charcoal);
   color: var(--color-white);
-  font-size: 14px;
+  font-size: 12.5px;
 }
 
 .topbar .container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   padding-top: 8px;
   padding-bottom: 8px;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
+}
+@media (min-width: 640px) {
+  .topbar .container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+}
+
+.topbar-contact {
+  display: flex;
+  gap: 18px;
 }
 
 .topbar a {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 .topbar a:hover {
   color: var(--color-yellow);
+}
+.topbar .icon-svg {
+  width: 15px;
+  height: 15px;
 }
 
 /* --------------------------------------------------------------------------
@@ -176,19 +229,29 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding: 10px 0;
   position: relative;
+}
+@media (min-width: 860px) {
+  .nav {
+    padding: 14px 0;
+  }
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 .brand-mark {
-  height: 42px;
+  height: 34px;
   width: auto;
   flex: none;
+}
+@media (min-width: 860px) {
+  .brand-mark {
+    height: 42px;
+  }
 }
 .brand-text {
   display: flex;
@@ -198,23 +261,39 @@ header {
 .brand-name {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 22px;
+  font-size: 18px;
   letter-spacing: .5px;
   color: var(--color-red);
   text-transform: uppercase;
   white-space: nowrap;
 }
+@media (min-width: 860px) {
+  .brand-name {
+    font-size: 22px;
+  }
+}
 .brand-sub {
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-size: 9.5px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--color-text-light);
   margin-top: 2px;
 }
+@media (min-width: 860px) {
+  .brand-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+}
 
 .navlinks {
-  display: flex;
-  gap: 32px;
+  display: none;
+  gap: 28px;
+}
+@media (min-width: 860px) {
+  .navlinks {
+    display: flex;
+  }
 }
 .navlinks a {
   font-weight: 600;
@@ -227,14 +306,28 @@ header {
 }
 
 .nav-cta {
-  display: flex;
+  display: none;
   gap: 12px;
+}
+@media (min-width: 860px) {
+  .nav-cta {
+    display: flex;
+  }
 }
 
 .menu-toggle {
-  display: none;
-  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  font-size: 26px;
   line-height: 1;
+}
+@media (min-width: 860px) {
+  .menu-toggle {
+    display: none;
+  }
 }
 
 /* Menú mobile desplegable (controlado por js/main.js) */
@@ -244,44 +337,65 @@ header {
   gap: 4px;
   background: var(--color-white);
   border-top: 1px solid var(--color-border);
-  padding: 12px 24px 20px;
+  padding: 10px 20px 20px;
 }
 .mobile-menu.is-open {
   display: flex;
 }
 .mobile-menu a {
-  padding: 12px 0;
+  padding: 13px 0;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 15px;
   border-bottom: 1px solid var(--color-border);
 }
 .mobile-menu .btn {
-  margin-top: 12px;
-  justify-content: center;
+  margin-top: 14px;
+  width: 100%;
+}
+@media (min-width: 860px) {
+  .mobile-menu {
+    display: none !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
    HERO (sección Inicio)
+   Mobile: todo en una columna, el texto y los botones de contacto van
+   PRIMERO (es lo que importa), la imagen va después. Recién en pantallas
+   grandes se arma la grilla de 2 columnas lado a lado.
    -------------------------------------------------------------------------- */
 
 .hero {
   background: linear-gradient(135deg, var(--color-charcoal) 0%, var(--color-charcoal-2) 100%);
   color: var(--color-white);
-  padding: 90px 0;
+  padding: 36px 0 40px;
   position: relative;
   overflow: hidden;
+}
+@media (min-width: 860px) {
+  .hero {
+    padding: 90px 0;
+  }
 }
 .hero::after {
   content: "";
   position: absolute;
-  right: -120px;
-  top: -120px;
-  width: 420px;
-  height: 420px;
+  right: -80px;
+  top: -80px;
+  width: 220px;
+  height: 220px;
   background: var(--color-yellow);
   opacity: .12;
   border-radius: 50%;
+}
+@media (min-width: 860px) {
+  .hero::after {
+    right: -120px;
+    top: -120px;
+    width: 420px;
+    height: 420px;
+  }
 }
 .hero .container {
   position: relative;
@@ -289,49 +403,86 @@ header {
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 48px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+@media (min-width: 860px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 48px;
+    align-items: center;
+  }
 }
 
 .hero h1 {
   color: var(--color-white);
-  font-size: 52px;
-  line-height: 1.05;
-  margin-bottom: 20px;
+  font-size: clamp(30px, 8vw, 52px);
+  line-height: 1.08;
+  margin-bottom: 16px;
 }
 .hero h1 span {
   color: var(--color-yellow);
 }
 
 .hero p {
-  font-size: 18px;
+  font-size: 16px;
   color: #D9D9D9;
   max-width: 520px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+}
+@media (min-width: 860px) {
+  .hero p {
+    font-size: 18px;
+    margin-bottom: 32px;
+  }
 }
 
 .hero-actions {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+}
+.hero-actions .btn {
+  width: 100%;
+}
+@media (min-width: 600px) {
+  .hero-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .hero-actions .btn {
+    width: auto;
+  }
 }
 
 .hero-badges {
   display: flex;
-  gap: 28px;
-  margin-top: 44px;
+  gap: 22px;
+  margin-top: 32px;
   flex-wrap: wrap;
+}
+@media (min-width: 860px) {
+  .hero-badges {
+    gap: 28px;
+    margin-top: 44px;
+  }
 }
 .hero-badge strong {
   display: block;
   font-family: var(--font-heading);
-  font-size: 32px;
+  font-size: 26px;
   color: var(--color-yellow);
 }
+@media (min-width: 860px) {
+  .hero-badge strong {
+    font-size: 32px;
+  }
+}
 .hero-badge span {
-  font-size: 13px;
+  font-size: 12px;
   color: #C7C7C7;
   text-transform: uppercase;
   letter-spacing: .5px;
@@ -351,34 +502,59 @@ header {
 }
 
 .hero-visual.photo-placeholder {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   border: 1px dashed rgba(255, 255, 255, .35);
   background: rgba(255, 255, 255, .06);
   color: #9A9A9A;
+  order: 2;
+}
+@media (min-width: 860px) {
+  .hero-visual.photo-placeholder {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 /* --------------------------------------------------------------------------
-   GRIDS Y TARJETAS GENÉRICAS (Servicios)
+   GRIDS Y TARJETAS GENÉRICAS (Servicios / Productos)
+   Mobile: 1 columna. Desde 600px: 2 columnas. Desde 1080px: la grilla
+   completa (3 o 4 según la sección).
    -------------------------------------------------------------------------- */
 
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-
+.grid-3,
 .grid-4 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+@media (min-width: 600px) {
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+@media (min-width: 1080px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
 }
 
 .card {
   background: var(--color-white);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
-  padding: 28px;
+  padding: 24px;
   transition: .2s;
+}
+@media (min-width: 860px) {
+  .card {
+    padding: 28px;
+  }
 }
 .card:hover {
   border-color: var(--color-yellow);
@@ -386,20 +562,26 @@ header {
   transform: translateY(-2px);
 }
 .card .icon {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 8px;
   background: var(--color-yellow);
   color: var(--color-charcoal);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 .card h3 {
-  font-size: 22px;
-  margin-bottom: 10px;
+  font-size: 20px;
+  margin-bottom: 8px;
   text-transform: none;
+}
+@media (min-width: 860px) {
+  .card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
 }
 .card p {
   color: var(--color-text-light);
@@ -421,10 +603,15 @@ header {
   border-radius: 0;
 }
 .prod-body {
-  padding: 18px;
+  padding: 16px;
+}
+@media (min-width: 860px) {
+  .prod-body {
+    padding: 18px;
+  }
 }
 .prod-body h4 {
-  font-size: 19px;
+  font-size: 18px;
   margin-bottom: 6px;
   text-transform: none;
 }
@@ -437,6 +624,8 @@ header {
   font-weight: 700;
   color: var(--color-red);
   font-size: 14px;
+  display: inline-block;
+  padding: 6px 0; /* más alto para tocar cómodo */
 }
 .prod-body a:hover {
   text-decoration: underline;
@@ -447,16 +636,28 @@ header {
    -------------------------------------------------------------------------- */
 
 .nosotros-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+@media (min-width: 860px) {
+  .nosotros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
 }
 
 .nosotros-photos {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
+}
+@media (min-width: 860px) {
+  .nosotros-photos {
+    gap: 16px;
+  }
 }
 .nosotros-photos .photo-placeholder {
   aspect-ratio: 1 / 1;
@@ -468,48 +669,79 @@ header {
 
 .stats-row {
   display: flex;
-  gap: 36px;
-  margin-top: 32px;
+  gap: 28px;
+  margin-top: 24px;
   flex-wrap: wrap;
+}
+@media (min-width: 860px) {
+  .stats-row {
+    gap: 36px;
+    margin-top: 32px;
+  }
 }
 .stat strong {
   display: block;
   font-family: var(--font-heading);
-  font-size: 34px;
+  font-size: 28px;
   color: var(--color-red);
 }
+@media (min-width: 860px) {
+  .stat strong {
+    font-size: 34px;
+  }
+}
 .stat span {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-light);
   text-transform: uppercase;
 }
 
 /* --------------------------------------------------------------------------
    CONTACTO
+   Mobile: tarjeta de datos primero, mapa después, botones apilados a
+   ancho completo. Desde 860px pasa a 2 columnas lado a lado.
    -------------------------------------------------------------------------- */
 
 .contact-grid {
-  display: grid;
-  grid-template-columns: .9fr 1.1fr;
-  gap: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (min-width: 860px) {
+  .contact-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 48px;
+  }
 }
 
 .contact-info-card {
   background: var(--color-charcoal);
   color: var(--color-white);
   border-radius: var(--radius-lg);
-  padding: 36px;
+  padding: 26px 22px;
+}
+@media (min-width: 860px) {
+  .contact-info-card {
+    padding: 36px;
+  }
 }
 .contact-info-card h3 {
   color: var(--color-white);
-  font-size: 24px;
-  margin-bottom: 24px;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+@media (min-width: 860px) {
+  .contact-info-card h3 {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
 }
 
 .contact-row {
   display: flex;
   gap: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   align-items: flex-start;
 }
 .contact-row .ic {
@@ -542,9 +774,22 @@ header {
 
 .contact-cta-row {
   display: flex;
-  gap: 14px;
-  margin-top: 28px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+.contact-cta-row .btn {
+  width: 100%;
+}
+@media (min-width: 480px) {
+  .contact-cta-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .contact-cta-row .btn {
+    width: auto;
+    flex: 1 1 auto;
+  }
 }
 
 .btn-directions {
@@ -561,21 +806,31 @@ header {
 .map-col {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .map-wrap {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--color-border);
-  min-height: 340px;
+  min-height: 260px;
   flex: 1;
+}
+@media (min-width: 860px) {
+  .map-wrap {
+    min-height: 340px;
+  }
 }
 .map-wrap iframe {
   width: 100%;
   height: 100%;
-  min-height: 340px;
+  min-height: 260px;
   border: 0;
+}
+@media (min-width: 860px) {
+  .map-wrap iframe {
+    min-height: 340px;
+  }
 }
 
 .map-directions-link {
@@ -589,6 +844,7 @@ header {
   color: var(--color-white);
   font-weight: 700;
   font-size: 15px;
+  min-height: 48px;
 }
 .map-directions-link:hover {
   background: var(--color-charcoal-2);
@@ -601,17 +857,30 @@ header {
 footer {
   background: var(--color-charcoal-2);
   color: #C7C7C7;
-  padding: 44px 0 24px;
+  padding: 36px 0 90px; /* padding inferior extra: deja lugar a la barra fija mobile */
+}
+@media (min-width: 860px) {
+  footer {
+    padding: 44px 0 24px;
+  }
 }
 
 .footer-grid {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  padding-bottom: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+@media (min-width: 600px) {
+  .footer-grid {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 24px;
+  }
 }
 
 .footer-brand {
@@ -629,7 +898,7 @@ footer {
   flex: none;
 }
 .footer-brand .icon-badge img {
-  height: 26px;
+  height: 24px;
   width: auto;
 }
 .footer-brand .brand-name {
@@ -641,52 +910,67 @@ footer {
 
 .footer-links {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 18px 22px;
 }
 .footer-links a:hover {
   color: var(--color-yellow);
 }
 
 .footer-bottom {
-  padding-top: 18px;
-  font-size: 13px;
+  padding-top: 16px;
+  font-size: 12.5px;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
   color: #9A9A9A;
+}
+@media (min-width: 600px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 13px;
+  }
 }
 
 /* --------------------------------------------------------------------------
    BOTÓN FLOTANTE DE WHATSAPP
+   Solo en pantallas grandes: en celular ya está el botón de la barra fija
+   de abajo, que es más cómodo para el pulgar y evita que se pisen los dos.
    -------------------------------------------------------------------------- */
 
 .float-whatsapp {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 200;
-  background: var(--color-whatsapp);
-  color: var(--color-white);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+  display: none;
 }
-.float-whatsapp:hover {
-  transform: scale(1.06);
+@media (min-width: 860px) {
+  .float-whatsapp {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 200;
+    background: var(--color-whatsapp);
+    color: var(--color-white);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+  }
+  .float-whatsapp:hover {
+    transform: scale(1.06);
+  }
 }
 
 /* --------------------------------------------------------------------------
-   BARRA FIJA INFERIOR (solo mobile)
+   BARRA FIJA INFERIOR (solo celular)
+   Es el CTA principal en mobile: siempre visible, en la zona donde el
+   pulgar llega cómodo (a diferencia del header, que queda lejos).
    -------------------------------------------------------------------------- */
 
 .mobile-bar {
-  display: none;
+  display: block;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -694,7 +978,13 @@ footer {
   z-index: 150;
   background: var(--color-charcoal);
   padding: 10px 14px;
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
   box-shadow: 0 -4px 12px rgba(0, 0, 0, .15);
+}
+@media (min-width: 860px) {
+  .mobile-bar {
+    display: none;
+  }
 }
 .mobile-bar .container {
   display: flex;
@@ -712,58 +1002,11 @@ footer {
   color: var(--color-white);
 }
 
-/* --------------------------------------------------------------------------
-   RESPONSIVE
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 960px) {
-  .hero-grid,
-  .nosotros-grid,
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-  .hero-visual {
-    order: -1;
-  }
-  .grid-3,
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .navlinks,
-  .nav-cta {
-    display: none;
-  }
-  .menu-toggle {
-    display: block;
-  }
-  .mobile-bar {
-    display: block;
-  }
-  /* La barra fija de abajo ya tiene su propio botón de WhatsApp:
-     el globo flotante se oculta para que no se superpongan */
-  .float-whatsapp {
-    display: none;
-  }
-  body {
-    padding-bottom: 64px;
-  }
+body {
+  padding-bottom: 68px; /* deja lugar a la barra fija en celular */
 }
-
-@media (max-width: 640px) {
-  .hero h1 {
-    font-size: 36px;
-  }
-  .section {
-    padding: var(--space-section-mobile) 0;
-  }
-  .grid-3,
-  .grid-4 {
-    grid-template-columns: 1fr;
-  }
-  .topbar .container {
-    font-size: 12px;
-  }
-  .nosotros-photos {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 860px) {
+  body {
+    padding-bottom: 0;
   }
 }
