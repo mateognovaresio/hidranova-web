@@ -144,7 +144,9 @@ header {
    HERO
    -------------------------------------------------------------------------- */
 .hero {
-  background: linear-gradient(135deg, var(--color-charcoal) 0%, var(--color-charcoal-2) 100%);
+  background:
+    linear-gradient(135deg, rgba(43,44,47,.85) 0%, rgba(37,38,41,.85) 100%),
+    url("../assets/img/taller-frente.jpg") center/cover no-repeat;
   color: var(--color-white); padding: 40px 0 44px;
 }
 @media (min-width: 860px) { .hero { padding: 72px 0; } }
@@ -196,6 +198,7 @@ header {
    GRIDS / TARJETAS
    -------------------------------------------------------------------------- */
 .grid-4 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.grid-4 { align-items: start; }
 @media (min-width: 600px) { .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
 @media (min-width: 1080px) { .grid-4 { grid-template-columns: repeat(4, 1fr); gap: 22px; } }
 
@@ -290,4 +293,18 @@ footer { background: var(--color-charcoal-2); color: #C7C7C7; padding: 28px 0; }
     align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0,0,0,.25);
   }
   .float-whatsapp:hover { transform: scale(1.06); }
+}
+
+/* Fotos reales dentro de tarjetas de producto/servicio: recorte parejo 4:3 */
+.prod-card img.prod-photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* Foto real de Matías (circular, recortada) */
+img.matias-photo {
+  object-fit: cover;
 }
